@@ -36,14 +36,18 @@ struct Card{
     Rang rang;
     Suit suit;
 };
+    int playBlackjack(std::array<Card, sizeDeck> deck, int *cardPosition);
 
 void swapCard(Card*, Card*);
 void printCard(Card*);
 int getRandom();
-void shuffleDeck(std::array<Card,sizeDeck>& arr);
+void shuffleDeck(std::array<Card,sizeDeck>& deck);
 int getCardValue(Card card);
+void whoWon(int fPlayer,int sPlayer);
+
 
 std::array<Card,52> *fullDeck(int rangs, int suits);
+
 
 int main(){
 
@@ -52,13 +56,14 @@ int main(){
     std::array<Card,sizeDeck> *deck = fullDeck((int)Rang::ALL_RANG - 1, (int)Suit::ALL_SUIT);
     shuffleDeck(*deck);
 
-    for(auto i : *deck){
-        printCard(&i);
-    }
+//    for(auto i : *deck){
+//        printCard(&i);
+//    }
 
-    std::cout << std::endl;
-    std::cout << getCardValue((*deck)[20]) << " 20card ";
-    printCard(&(*deck)[20]);
+    int coutn = 0;
+
+
+    whoWon(playBlackjack(*deck,&coutn), playBlackjack(*deck,&coutn));
 
     delete deck;
     return 0;
@@ -123,14 +128,14 @@ std::array<Card,sizeDeck>* fullDeck(int rangs, int suits){
 
 }
 
-void shuffleDeck(std::array<Card,sizeDeck>& arr){
+void shuffleDeck(std::array<Card,sizeDeck> &deck){
 
     int random;
 
     for (int i = 0; i < sizeDeck; i++) {
 
         random = getRandom();
-        swapCard(&arr[i],&arr[random]);
+        swapCard(&deck[i],&deck[random]);
     }
 
 
@@ -155,6 +160,66 @@ int getCardValue(Card card){
         default:
             return static_cast<int>(val);
     }
+}
+void whoWon(int sPlayer,int fPlayer){
+    if(fPlayer>sPlayer && fPlayer <= 21){
+
+        std::cout << "Player's won "<< fPlayer << " vs " << sPlayer;
+    }else if(sPlayer > fPlayer && sPlayer <= 21 ){
+
+        std::cout << "Diller's won " << sPlayer;
+    }else{
+        std::cout << "Draw " << fPlayer;
+    }
+}
+
+int playBlackjack(std::array<Card,sizeDeck> deck,int *cardPosition){
+
+    bool flagBot = false;
+    bool flagOut = false;
+    bool firstHit = true;
+
+    if(*cardPosition > 0){
+        flagBot = true;
+    }
+
+    int player = 0;
+    
+    std::string playerIsDo;
+
+    while(playerIsDo!="stand"&&!flagOut){
+
+        if(!flagBot) {
+
+            if(firstHit) {
+                player += getCardValue(deck[*cardPosition]);
+            }
+            std::cout << "You have is " << player << std::endl;
+
+            std::cin >> playerIsDo;
+
+                if(playerIsDo == "hit"){
+
+                     player += getCardValue(deck[*cardPosition]);
+                     firstHit = false;
+                     *cardPosition += 1;
+
+                }else if(playerIsDo != "stand"){
+
+                  std::cout << "Try again, bad request" << std::endl;
+                }
+        }else{
+            if(player<=17){
+
+                player += getCardValue(deck[*cardPosition]);
+                *cardPosition += 1;
+            }else{
+                flagOut = true;
+                playerIsDo = "stand";
+            }
+        }
+    }
+    return player;
 }
 
 
