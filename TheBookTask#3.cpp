@@ -49,25 +49,25 @@ void whoWon(int fPlayer,int sPlayer);
 std::array<Card,52> *fullDeck(int rangs, int suits);
 
 
-int main(){
-
-    Card cart;
-
-    std::array<Card,sizeDeck> *deck = fullDeck((int)Rang::ALL_RANG - 1, (int)Suit::ALL_SUIT);
-    shuffleDeck(*deck);
-
-//    for(auto i : *deck){
-//        printCard(&i);
-//    }
-
-    int coutn = 0;
-
-
-    whoWon(playBlackjack(*deck,&coutn), playBlackjack(*deck,&coutn));
-
-    delete deck;
-    return 0;
-}
+//int main(){
+//
+//    Card cart;
+//
+//    std::array<Card,sizeDeck> *deck = fullDeck((int)Rang::ALL_RANG - 1, (int)Suit::ALL_SUIT);
+//    shuffleDeck(*deck);
+//
+////    for(auto i : *deck){
+////        printCard(&i);
+////    }
+//
+//    int coutn = 0;
+//
+//
+//    whoWon(playBlackjack(*deck,&coutn), playBlackjack(*deck,&coutn));
+//
+//    delete deck;
+//    return 0;
+//}
 
 
 
