@@ -10,23 +10,32 @@ int divide(int a,int b);
 
 typedef int (*arithmeticFcn)(int, int);
 
+struct ArithmeticStruct{
+
+    char oper;
+    arithmeticFcn ptrA;
+};
+
 arithmeticFcn getArithmeticFcn(char oper);
+
+ArithmeticStruct arithmeticStructArr[4] = {
+        {'+', add},
+        {'-',subtract},
+        {'*',multiply},
+        {'/',divide}
+};
 
 int main() {
     int numbF, numbS;
     char oper;
 
-    std::cout << "Enter two numbers";
+    std::cout << "Enter two numbers :";
 
     std::cin >> numbF >> numbS;
 
-    std::cout << "Enter operand";
+    std::cout << "Enter operand :";
 
     std::cin >> oper;
-
-    if (oper != '+' || oper != '-' || oper != '*' || oper != '/'){
-        std::cout << "Error!";
-    }
 
     arithmeticFcn ptr = getArithmeticFcn(oper);
 
@@ -55,11 +64,12 @@ int divide(int a,int b){
 }
 
 arithmeticFcn getArithmeticFcn(char oper){
-    switch (oper) {
-        case '+': return add;
-        case '-': return subtract;
-        case '*': return multiply;
-        case '/': return divide;
-        default: return nullptr;
-    }
+
+   for(auto i : arithmeticStructArr){
+       if(i.oper == oper){
+           return i.ptrA;
+       }
+   }
+    return nullptr;
 }
+
