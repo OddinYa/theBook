@@ -25,30 +25,30 @@ ArithmeticStruct arithmeticStructArr[4] = {
         {'/',divide}
 };
 
-int main() {
-    int numbF, numbS;
-    char oper;
-
-    std::cout << "Enter two numbers :";
-
-    std::cin >> numbF >> numbS;
-
-    std::cout << "Enter operand :";
-
-    std::cin >> oper;
-
-    arithmeticFcn ptr = getArithmeticFcn(oper);
-
-    if (ptr == nullptr) {
-        std::cout << "Error! Invalid operand." << std::endl;
-    } else {
-        int result = ptr(numbF, numbS);
-        std::cout << "Result: " << result << std::endl;
-    }
-
-    return 0;
-
-}
+//int main() {
+//    int numbF, numbS;
+//    char oper;
+//
+//    std::cout << "Enter two numbers :";
+//
+//    std::cin >> numbF >> numbS;
+//
+//    std::cout << "Enter operand :";
+//
+//    std::cin >> oper;
+//
+//    arithmeticFcn ptr = getArithmeticFcn(oper);
+//
+//    if (ptr == nullptr) {
+//        std::cout << "Error! Invalid operand." << std::endl;
+//    } else {
+//        int result = ptr(numbF, numbS);
+//        std::cout << "Result: " << result << std::endl;
+//    }
+//
+//    return 0;
+//
+//}
 
 int add(int a,int b){
     return a+b;
